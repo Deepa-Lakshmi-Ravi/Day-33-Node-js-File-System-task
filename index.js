@@ -6,8 +6,15 @@ const port = 3000;
 
 const server = http.createServer((req, res) => {
   const date = new Date();
-  const formattedDate = date.toISOString().replace(/[-T:]/g, "").split(".")[0];
-  const filename = `${formattedDate}.txt`;
+  const filename = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}-${date
+    .getHours()
+    .toString()
+    .padStart(2, "0")}-${date.getMinutes().toString().padStart(2, "0")}-${date
+    .getSeconds()
+    .toString()
+    .padStart(2, "0")}.txt`;
   try {
     fs.appendFileSync(`./node/${filename}`, `${date}`);
     res.statusCode = 200;
